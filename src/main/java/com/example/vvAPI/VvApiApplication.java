@@ -1,15 +1,13 @@
 package com.example.vvAPI;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
-@SpringBootApplication
 public class VvApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(VvApiApplication.class, args);
+	public static void main(String[] args) throws UnsupportedEncodingException, IOException {
 		Cliente cliente = new Cliente();
-		cliente.consultarCEP("62760000");
+		cliente.consultarCEP("60867540");
 	}
 
 }

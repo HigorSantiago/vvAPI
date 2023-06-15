@@ -2,7 +2,7 @@ package com.example.vvAPI.domain;
 
 public class CEP {
     private String logradouro;
-    private String Bairro;
+    private String bairro;
     private String localidade;
     private String uf;
     private String ibge;
@@ -15,7 +15,7 @@ public class CEP {
     public String toString() {
         return "CEP{" +
                 "logradouro='" + logradouro + '\'' +
-                ", Bairro='" + Bairro + '\'' +
+                ", bairro='" + bairro + '\'' +
                 ", localidade='" + localidade + '\'' +
                 ", uf='" + uf + '\'' +
                 ", ibge='" + ibge + '\'' +
@@ -31,7 +31,7 @@ public class CEP {
     }
 
     public void setBairro(String bairro) {
-        Bairro = bairro;
+        this.bairro = bairro;
     }
 
     public void setLocalidade(String localidade) {
@@ -67,7 +67,7 @@ public class CEP {
     }
 
     public String getBairro() {
-        return Bairro;
+        return bairro;
     }
 
     public String getLocalidade() {
@@ -101,7 +101,7 @@ public class CEP {
     public String toTexto() {
         StringBuilder sb = new StringBuilder();
         sb.append("Logradouro: ").append(logradouro).append("\n");
-        sb.append("Bairro: ").append(Bairro).append("\n");
+        sb.append("bairro: ").append(bairro).append("\n");
         sb.append("Localidade ").append(localidade).append("\n");
         sb.append("UF: ").append(uf).append("\n");
         sb.append("IBGE: ").append(ibge).append("\n");
@@ -110,6 +110,19 @@ public class CEP {
         sb.append("Siafi: ").append(siafi).append("\n");
         sb.append("Cep: ").append(cep).append("\n");
         return sb.toString();
+    }
+
+    public CEP(String logradouro, String bairro, String localidade, String uf, String ibge, String gia, String ddd,
+            String siafi, String cep) {
+        this.logradouro = logradouro;
+        this.bairro = bairro;
+        this.localidade = localidade;
+        this.uf = uf;
+        this.ibge = ibge;
+        this.gia = gia;
+        this.ddd = ddd;
+        this.siafi = siafi;
+        this.cep = cep;
     }
 
 }

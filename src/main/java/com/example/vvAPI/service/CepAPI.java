@@ -6,14 +6,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.example.vvAPI.domain.CEP;
+import com.example.vvAPI.exceptions.CEPDoesNotExistsException;
+import com.example.vvAPI.exceptions.InvalidCEPFormatException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 public class CepAPI {
     public CEP obterDadosAPI(String cep) {
 
-        if (cep == null) {
+        if (cep == null || cep.contains(" ")) {
             // System.out.println("O cep informado é invalido");
-            return null;
+            throw new InvalidCEPFormatException();
         }
 
         try{
@@ -21,9 +23,13 @@ public class CepAPI {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             if(connection.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST){
-                return null;
+                throw new InvalidCEPFormatException();
             }
             JsonNode cepJson = new ObjectMapper().readTree(url);
+            if(cepJson.get("erro") != null){
+                throw new CEPDoesNotExistsException();
+            }
+
             CEP cepReturn = new CEP(
                 cepJson.get("logradouro").toString(),
                 cepJson.get("bairro").toString(),

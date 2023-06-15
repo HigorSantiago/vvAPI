@@ -1,10 +1,10 @@
 package com.example.vvAPI;
 
 import com.example.vvAPI.domain.CEP;
-import com.example.vvAPI.exceptions.BadRequestException;
+import com.example.vvAPI.exceptions.CEPDoesNotExistsException;
+import com.example.vvAPI.exceptions.InvalidCEPFormatException;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
@@ -19,9 +19,17 @@ public class ClienteTest {
 	}
 
 	@Test
+	public void consultarSeCEPExist() {
+		Cliente client = new Cliente();
+		assertThrows(CEPDoesNotExistsException.class, () ->{
+			client.consultarCEP("99999999");
+		});
+	}
+
+	@Test
 	public void consultarCEPComMenosCaracteres() {
 		Cliente client = new Cliente();
-		assertThrows(BadRequestException.class, () -> {
+		assertThrows(InvalidCEPFormatException.class, () -> {
 			client.consultarCEP("123");
 		});
 	}
@@ -29,7 +37,7 @@ public class ClienteTest {
 	@Test
 	public void consultarCEPComMaisCaracteres() {
 		Cliente client = new Cliente();
-		assertThrows(BadRequestException.class, () -> {
+		assertThrows(InvalidCEPFormatException.class, () -> {
 			client.consultarCEP("950100100");
 		});
 	}
@@ -37,7 +45,7 @@ public class ClienteTest {
 	@Test
 	public void consultarCEPComEspaco() {
 		Cliente client = new Cliente();
-		assertThrows(BadRequestException.class, () -> {
+		assertThrows(InvalidCEPFormatException.class, () -> {
 			client.consultarCEP("95010 10");
 		});
 	}
@@ -45,7 +53,7 @@ public class ClienteTest {
 	@Test
 	public void consultarCEPComLetras() {
 		Cliente client = new Cliente();
-		assertThrows(BadRequestException.class, () -> {
+		assertThrows(InvalidCEPFormatException.class, () -> {
 			client.consultarCEP("95010A10");
 		});
 	}
@@ -53,7 +61,7 @@ public class ClienteTest {
 	@Test
 	public void consultarCEPNulo() {
 		Cliente client = new Cliente();
-		assertThrows(BadRequestException.class, () -> {
+		assertThrows(InvalidCEPFormatException.class, () -> {
 			client.consultarCEP(null);
 		});
 	}

@@ -14,7 +14,7 @@ public class Export {
 
         try (OutputStreamWriter  writer = new OutputStreamWriter(new FileOutputStream(nomeArquivo), StandardCharsets.UTF_8)) {
             writer.write(conteudo);
-            System.out.println("Arquivo exportado com sucesso: " + nomeArquivo);
+            // System.out.println("Arquivo exportado com sucesso: " + nomeArquivo);
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Erro ao exportar arquivo: " + e.getMessage());

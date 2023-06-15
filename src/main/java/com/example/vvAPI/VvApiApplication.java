@@ -1,13 +1,10 @@
 package com.example.vvAPI;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 public class VvApiApplication {
 
-	public static void main(String[] args) throws UnsupportedEncodingException, IOException {
+	public static void main(String[] args) {
 		Cliente cliente = new Cliente();
-		cliente.consultarCEP("60867540");
+		cliente.consultarCEP("62760000");
 	}
 
 }

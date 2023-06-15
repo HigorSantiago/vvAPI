@@ -1,38 +1,50 @@
 package com.example.vvAPI.service;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.example.vvAPI.domain.CEP;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class CepAPI {
-    public CEP obterDadosAPI(String cep) throws MalformedURLException, IOException {
+    public CEP obterDadosAPI(String cep) {
 
         if (cep == null) {
-            System.out.println("O cep informado é invalido");
+            // System.out.println("O cep informado é invalido");
             return null;
         }
 
-        String urlAPI = "https://viacep.com.br/ws/" + cep + "/json/";
-        JsonNode cepJson = new ObjectMapper().readTree(new URL(urlAPI));
+        try{
+            URL url = new URL("https://viacep.com.br/ws/" + cep + "/json/");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            if(connection.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST){
+                return null;
+            }
+            JsonNode cepJson = new ObjectMapper().readTree(url);
+            CEP cepReturn = new CEP(
+                cepJson.get("logradouro").toString(),
+                cepJson.get("bairro").toString(),
+                cepJson.get("localidade").toString(),
+                cepJson.get("uf").toString(),
+                cepJson.get("ibge").toString(),
+                cepJson.get("gia").toString(),
+                cepJson.get("ddd").toString(),
+                cepJson.get("siafi").toString(),
+                cepJson.get("cep").toString()
+            );
+    
+            return cepReturn;
+        }catch(MalformedURLException e){
+            return null;
+        }catch(IOException e){
+            return null;
+        }
+        
 
 
-        CEP cepReturn = new CEP(
-            cepJson.get("logradouro").toString(),
-            cepJson.get("bairro").toString(),
-            cepJson.get("localidade").toString(),
-            cepJson.get("uf").toString(),
-            cepJson.get("ibge").toString(),
-            cepJson.get("gia").toString(),
-            cepJson.get("ddd").toString(),
-            cepJson.get("siafi").toString(),
-            cepJson.get("cep").toString()
-        );
-
-        return cepReturn;
 
         // String urlAPI = "https://viacep.com.br/ws/"+cep+"/json/"; // URL da API
         // externa

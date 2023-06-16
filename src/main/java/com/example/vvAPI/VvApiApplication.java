@@ -1,9 +1,13 @@
 package com.example.vvAPI;
 
+import com.example.vvAPI.service.CepAPI;
+
 public class VvApiApplication {
 
 	public static void main(String[] args) {
-		Cliente cliente = new Cliente();
+		CepAPI api = new CepAPI();
+		Cliente cliente = new Cliente(api);
+		
 		cliente.consultarCEP("62760000");
 	}
 

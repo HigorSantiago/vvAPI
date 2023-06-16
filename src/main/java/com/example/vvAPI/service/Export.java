@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 public class Export {
     public static void exportarParaArquivo(CEP cep, String nomeArquivo) {
 
-        String conteudo = cep.toTexto();
+        String conteudo = cep.toString();
 
         try (OutputStreamWriter  writer = new OutputStreamWriter(new FileOutputStream(nomeArquivo), StandardCharsets.UTF_8)) {
             writer.write(conteudo);

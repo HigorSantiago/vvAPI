@@ -2,7 +2,6 @@ package com.example.vvAPI;
 
 
 import com.example.vvAPI.domain.CEP;
-import com.example.vvAPI.exceptions.InvalidCEPFormatException;
 import com.example.vvAPI.service.CepAPI;
 
 import com.example.vvAPI.service.Export;

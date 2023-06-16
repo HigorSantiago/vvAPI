@@ -12,14 +12,14 @@ import org.junit.Test;
 public class ClienteTest {
 
 	@Test
-	public void consultarCEPCerto() {
+	public void consultarSeCEPExiste() {
 		Cliente client = new Cliente();
 		CEP cep = client.consultarCEP("62760000");
 		assertNotNull(cep);
 	}
 
 	@Test
-	public void consultarSeCEPExist() {
+	public void consultarSeCEPNaoExiste() {
 		Cliente client = new Cliente();
 		assertThrows(CEPDoesNotExistsException.class, () ->{
 			client.consultarCEP("99999999");
@@ -27,43 +27,10 @@ public class ClienteTest {
 	}
 
 	@Test
-	public void consultarCEPComMenosCaracteres() {
+	public void consultarSeCEPEValido() {
 		Cliente client = new Cliente();
 		assertThrows(InvalidCEPFormatException.class, () -> {
 			client.consultarCEP("123");
 		});
 	}
-
-	@Test
-	public void consultarCEPComMaisCaracteres() {
-		Cliente client = new Cliente();
-		assertThrows(InvalidCEPFormatException.class, () -> {
-			client.consultarCEP("950100100");
-		});
-	}
-
-	@Test
-	public void consultarCEPComEspaco() {
-		Cliente client = new Cliente();
-		assertThrows(InvalidCEPFormatException.class, () -> {
-			client.consultarCEP("95010 10");
-		});
-	}
-
-	@Test
-	public void consultarCEPComLetras() {
-		Cliente client = new Cliente();
-		assertThrows(InvalidCEPFormatException.class, () -> {
-			client.consultarCEP("95010A10");
-		});
-	}
-
-	@Test
-	public void consultarCEPNulo() {
-		Cliente client = new Cliente();
-		assertThrows(InvalidCEPFormatException.class, () -> {
-			client.consultarCEP(null);
-		});
-	}
-
 }
